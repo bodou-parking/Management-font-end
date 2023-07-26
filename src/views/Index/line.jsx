@@ -13,7 +13,7 @@ class Line extends Component {
                 trigger: 'axis'
             },
             legend: {
-                data: ['总数', '平台预约', '实际停车']
+                data: ['当日开放车位总数', '平台预约用户', '实际停车']
             },
             grid: {
                 left: '3%',
@@ -36,14 +36,14 @@ class Line extends Component {
             },
             series: [
                 {
-                    name: '总数',
+                    name: '当日开放车位总数',
                     type: 'line',
-                    data: [120, 132, 101, 134, 90, 230, 210]
+                    data: [500, 532, 501, 534, 590, 530, 510]
                 },
                 {
-                    name: '平台预约',
+                    name: '平台预约用户',
                     type: 'line',
-                    data: [220, 182, 191, 234, 290, 330, 310]
+                    data: [420, 482, 491, 434, 490, 430, 410]
                 },
                 {
                     name: '实际停车',

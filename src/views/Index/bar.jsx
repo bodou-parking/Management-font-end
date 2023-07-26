@@ -4,6 +4,8 @@ import 'echarts/lib/chart/bar'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
+import { Divider } from 'antd'
+import './ind.css'
 
 class Bar extends Component {
     componentDidMount() {
@@ -17,7 +19,7 @@ class Bar extends Component {
                 }
             },
             legend: {
-                data: ['车位数', '预约数', '剩余数', '已占用']
+                data: ['停车费', '超时收取金额']
             },
             grid: {
                 left: '3%',
@@ -28,7 +30,7 @@ class Bar extends Component {
             xAxis: [
                 {
                     type: 'category',
-                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                    data: ['昨日', '今日']
                 }
             ],
             yAxis: [
@@ -38,27 +40,14 @@ class Bar extends Component {
             ],
             series: [
                 {
-                    name: '车位数',
+                    name: '停车费',
                     type: 'bar',
-                    data: [300, 300, 300, 300, 300, 300, 300]
+                    data: [120, 20]
                 },
                 {
-                    name: '预约数',
+                    name: '超时收取金额',
                     type: 'bar',
-                    stack: '广告',
-                    data: [100, 100, 100, 50, 90, 200, 170]
-                },
-                {
-                    name: '剩余数',
-                    type: 'bar',
-                    stack: '广告',
-                    data: [20, 180, 100, 100, 100, 100, 30]
-                },
-                {
-                    name: '已占用',
-                    type: 'bar',
-                    stack: '广告',
-                    data: [180, 20, 100, 150, 110, 0, 100]
+                    data: [220, 18]
                 }
             ]
         })
@@ -67,7 +56,55 @@ class Bar extends Component {
         })
     }
     render() {
-        return <div id='bar' style={{ height: 500, background: '#fff' }}></div>
+        return (
+            <div style={{ height: 500 }}>
+                <div id='bar' style={{ height: 500, width: 300, background: '#fff', float: 'left' }}></div>
+                <div style={{ float: 'right', width: '65%' }}>
+                    <div>
+                        <div style={{ fontSize: '25px' }}>本日收入情况:</div>
+                        <br />
+                        <div>
+                            完成支付订单:
+                            <span className={'bigSize fontGold'}>11</span>
+                        </div>
+                        <div>
+                            本日总收入为:
+                            <span className={'bigSize fontGold'}>255</span>元
+                        </div>
+                    </div>
+                    <Divider />
+                    <div>
+                        <div style={{ fontSize: '25px' }}>本日车位使用率情况:</div>
+                        <br />
+                        <div>
+                            总使用率:
+                            <span className={'bigSize fontBlue'}>11</span>%
+                        </div>
+                        <div>
+                            总剩余率:
+                            <span className={'bigSize fontRed'}>11</span>%
+                        </div>
+                    </div>
+                    <Divider />
+                    <div>
+                        <div style={{ fontSize: '25px' }}>本日用户分析:</div>
+                        <br />
+                        <div>
+                            日活用户数:
+                            <span className={'bigSize fontGreen'}>1153</span>
+                        </div>
+                        <div>
+                            使用频率最高的停车场:
+                            <span className={'bigSize fontGreen'}>红浪漫休闲会所</span>
+                        </div>
+                        <div>
+                            用户使用频率最多的时间段:
+                            <span className={'bigSize fontGreen'}>16:00-18:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
     }
 }
 

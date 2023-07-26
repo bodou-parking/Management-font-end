@@ -16,20 +16,19 @@ class Pie extends Component {
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['自行车', '婴儿车', '宝宝巴士', '独轮车', '比亚迪']
+                data: ['正常停车', '预约未使用', '暂时停用', '空闲']
             },
             series: [
                 {
-                    name: '访问来源',
+                    name: '具体情况',
                     type: 'pie',
                     radius: '55%',
                     center: ['50%', '60%'],
                     data: [
-                        { value: 335, name: '自行车' },
-                        { value: 310, name: '婴儿车' },
-                        { value: 234, name: '宝宝巴士' },
-                        { value: 135, name: '独轮车' },
-                        { value: 1548, name: '比亚迪' }
+                        { value: 335, name: '正常停车' },
+                        { value: 310, name: '预约未使用' },
+                        { value: 234, name: '暂时停用' },
+                        { value: 135, name: '空闲' }
                     ],
                     itemStyle: {
                         emphasis: {

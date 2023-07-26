@@ -1,0 +1,35 @@
+.userInfo {
+    font-size: 20px;
+    width: 60%;
+    float: left;
+}
+.userImg {
+    background-color: black;
+    height: 200px;
+    width: 200px;
+    float: right;
+    border-radius: 20px;
+}
+.cen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.root {
+    height: 300px;
+}
+.fontBlue {
+    color: deepskyblue;
+}
+.fontGreen {
+    color: green;
+}
+.fontRed {
+    color: red;
+}
+.fontGold {
+    color: #8d7b00;
+}
+.bigSize {
+    font-size: 20px;
+}
