@@ -4,6 +4,7 @@ import loadable from './utils/loadable'
 import 'animate.css'
 import './style/base.scss'
 import './style/App.scss'
+import 'antd/dist/antd.css'
 
 // 公共模块
 const DefaultLayout = loadable(() => import(/* webpackChunkName: 'default' */ './containers'))

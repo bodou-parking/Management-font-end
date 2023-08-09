@@ -1,0 +1,7 @@
+.bigger {
+    transition: transform 0.3s;
+}
+
+.bigger:hover {
+    transform: scale(1.1);
+}
