@@ -105,7 +105,9 @@ class CustomMenu extends Component {
                 onOpenChange={this.onOpenChange}>
                 {this.props.menu &&
                     this.props.menu.map(item => {
-                        return item.subs && item.subs.length > 0 ? this.renderSubMenu(item) : this.renderMenuItem(item)
+                        return item.subs && item.subs.length * !this.props.menuToggle > 0
+                            ? this.renderSubMenu(item)
+                            : this.renderMenuItem(item)
                     })}
             </Menu>
         )

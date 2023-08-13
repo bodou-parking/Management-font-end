@@ -14,7 +14,7 @@ const AppAside = props => {
                     <Icon type='car' style={{ fontSize: '8.8rem', color: '#fff' }} />
                 </a>
             </div>
-            <CustomMenu menu={menu}></CustomMenu>
+            <CustomMenu menu={menu} menuToggle={menuToggle}></CustomMenu>
         </Sider>
     )
 }

@@ -14,11 +14,11 @@ const AppHeader = props => {
 
                 <Menu.Item>
                     <Icon type='heart' theme='twoTone' twoToneColor='#eb2f96' />
-                    建议使用新一点的版本，比如react18
+                    建议使用react18
                 </Menu.Item>
                 <Menu.Item>
                     <Icon type='heart' theme='twoTone' twoToneColor='#eb2f96' />
-                    找了一下午才发现node17+不行了
+                    node17+不行了
                 </Menu.Item>
             </Menu.ItemGroup>
 
@@ -32,12 +32,13 @@ const AppHeader = props => {
         </Menu>
     )
     return (
+        //问题就出在这里，这里进行关闭的时候，隔壁组件可能正在展开
         <Header className='header'>
             <div className='left' style={{ padding: 20 }}>
                 <Icon
                     style={{ fontSize: '4rem' }}
                     onClick={menuClick}
-                    type={menuToggle ? 'menu-unfold' : 'menu-fold'}
+                    type={menuToggle ? 'menu-unfold' : 'menu-fold'} //控制侧边栏展开或者关闭，1为展开，0为关闭
                 />
             </div>
             <div className='right' style={{ paddingRight: 60 }}>
