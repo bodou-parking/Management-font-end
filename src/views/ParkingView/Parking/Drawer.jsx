@@ -9,17 +9,17 @@ const Draw = props => {
     const onClose = () => {
         setOpen(false)
     }
-    const addParking = item => {
-        props.addParking(item)
+    const operation = (index, item) => {
+        props.operation(item)
         onClose()
     }
     return (
         <>
             <Button type='primary' onClick={showDrawer}>
-                新增停车场
+                {props.type ? '修改停车场' : '新增停车场'}
             </Button>
             <Drawer title='Basic Drawer' placement='right' width='40%' onClose={onClose} visible={open}>
-                <ParkingForm addParking={addParking} />
+                <ParkingForm operation={props.operation} item={props.item} index={props.index} type={props.type} />
             </Drawer>
         </>
     )

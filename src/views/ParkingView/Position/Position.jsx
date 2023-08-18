@@ -25,6 +25,8 @@ function Position() {
             { name: 4, user: 2, statue: 'empty' }
         ])
     }, [])
+    //获取停车场基本信息
+
     //用于增加停车位
     const addPos = item => {
         console.log('新增', item) //item即为传回的数据

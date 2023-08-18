@@ -19,8 +19,38 @@ class Parking extends Component {
     }
 
     //这里可以执行一些dom操作和请求
-    componentDidMount() {}
+    componentDidMount() {
+        this.getAllParkings()
+    }
 
+    //获取停车场列表（好像每次获取de数据都不一样）
+    getAllParkings = () => {
+        var axios = require('axios')
+        var config = {
+            method: 'get',
+            url:
+                'https://mock.apifox.cn/m1/3070667-0-default/parking/list?longitude=0&latitude=0&radius=0&limit=0&offset=0',
+            headers: {
+                'User-Agent': 'BodouParking/1.0.1',
+                Version: '1.0.1',
+                Token: '{{TOKEN}}',
+                Timestamp: '{{TIMESTAMP}}',
+                Signature: '{{SIGN}}'
+            }
+        }
+        axios(config)
+            .then(response => {
+                console.log(response.data.data)
+                const parkingArr = response.data.data
+                const newState = { ...this.state }
+                newState.parkings = parkingArr
+                this.setState(newState)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    //下面这俩是加载内容
     enterLoading = () => {
         const newState = { ...this.state }
         newState.loading = true
@@ -43,18 +73,97 @@ class Parking extends Component {
 
     //用于增加停车场的方法，该方法会传递给子组件draw，子组件中的表单会收集一些信息
     addParking = item => {
-        console.log('新增', item) //item即为传回的数据
+        //减少api交互次数，这里做一个简单de存储
+        console.log('新增', item)
         const newState = { ...this.state }
         newState.parkings = [...newState.parkings, item]
         this.setState(newState)
+        var axios = require('axios')
+        var data = item
+
+        var config = {
+            method: 'post',
+            url: 'https://mock.apifox.cn/m1/3070667-0-default/parking/add',
+            headers: {
+                'User-Agent': 'BodouParking/1.0.1',
+                Version: '1.0.1',
+                Token: '{{TOKEN}}',
+                Timestamp: '{{TIMESTAMP}}',
+                Signature: '{{SIGN}}',
+                'Content-Type': 'application/json'
+            },
+            data: data
+        }
+
+        axios(config)
+            .then(response => {
+                console.log(JSON.stringify(response.data), '成功存储')
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     //删除停车场
-    delParking = index => {
-        console.log(`正在试图删除${index}个停车场`) //删除某个停车场
+    delParking = (index, item) => {
+        console.log(`正在试图删除${item.name}停车场`)
+        //减少api交互，
         const newState = { ...this.state }
         newState.parkings = [...newState.parkings.slice(0, index), ...newState.parkings.slice(index + 1)]
         this.setState(newState)
+        var axios = require('axios')
+
+        var config = {
+            method: 'post',
+            url: 'https://mock.apifox.cn/m1/3070667-0-default/parking/delete?id=' + item.id,
+            headers: {
+                'User-Agent': 'BodouParking/1.0.1',
+                Version: '1.0.1',
+                Token: '{{TOKEN}}',
+                Timestamp: '{{TIMESTAMP}}',
+                Signature: '{{SIGN}}'
+            }
+        }
+
+        axios(config)
+            .then(function(response) {
+                console.log('已经删除', JSON.stringify(response.data))
+            })
+            .catch(function(error) {
+                console.log(error)
+            })
+    }
+    //注意一下这两个参数来自其他组件de反馈
+    changeParking = (index, item) => {
+        console.log(`正在试图修改${item.name}停车场`)
+        //减少api交互，
+        const newState = { ...this.state }
+        newState.parkings[index] = item
+        this.setState(newState)
+        //交互
+        var axios = require('axios')
+        var data = item
+        var config = {
+            method: 'post',
+            url: 'https://mock.apifox.cn/m1/3070667-0-default/parking/update?id=' + item.id,
+            headers: {
+                'User-Agent': 'BodouParking/1.0.1',
+                Version: '1.0.1',
+                Token: '{{TOKEN}}',
+                Timestamp: '{{TIMESTAMP}}',
+                Signature: '{{SIGN}}',
+                'Content-Type': 'application/json'
+            },
+            data: data
+        }
+
+        axios(config)
+            .then(function(response) {
+                console.log('修改成功', JSON.stringify(response.data))
+            })
+            .catch(function(error) {
+                console.log(error)
+            })
     }
 
     render() {
@@ -69,7 +178,7 @@ class Parking extends Component {
                     <Divider />
                     <div style={{ float: 'left' }}>
                         <p>这部分是您管理的所有的停车场的基本信息</p>
-                        <Draw addParking={this.addParking} />
+                        <Draw operation={this.addParking} type={0} />
                     </div>
                     <div style={{ float: 'right' }}>
                         <Pie proportion={[723, 345]} />
@@ -84,10 +193,16 @@ class Parking extends Component {
                                         {item.name}
                                         <Divider />
                                         <div style={{ float: 'left' }}>
-                                            当前使用人数：{item.used}/{item.capacity}
+                                            总容量：{item.capacity}
                                             <div style={{ marginTop: 20 }}>
                                                 <Button onClick={() => this.handleClick(item)}>基本信息</Button>
-                                                <Button onClick={() => this.delParking(index)} type='primary'>
+                                                <Draw
+                                                    operation={this.changeParking}
+                                                    item={item}
+                                                    index={index}
+                                                    type={1}
+                                                />
+                                                <Button onClick={() => this.delParking(index, item)} type='primary'>
                                                     删除
                                                 </Button>
                                             </div>
