@@ -65,10 +65,9 @@ class Parking extends Component {
 
     //跳转到停车场具体路由
     handleClick = item => {
-        // 存入车位信息到localStorage中
-        localStorage.setItem('parking', JSON.stringify(item))
-        // 进行导航操作
-        this.props.history.push('/parkingView/position')
+        this.props.history.push(
+            `/parkingView/position/?Id=${item.id}&name=${item.name}&capacity=${item.capacity}&address=${item.address}`
+        )
     }
 
     //用于增加停车场的方法，该方法会传递给子组件draw，子组件中的表单会收集一些信息

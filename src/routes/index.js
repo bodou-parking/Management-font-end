@@ -24,7 +24,6 @@ const routes = [
 
     { path: '/user/feedback', exact: false, name: '用户反馈', component: Feedback },
     { path: '/user/info', exact: false, name: '用户信息', component: UserInfo },
-
     { path: '/income/analyze', exact: false, name: '收支分析', component: Analyze },
     { path: '/income/charge', exact: false, name: '收费管理', component: Charge },
 

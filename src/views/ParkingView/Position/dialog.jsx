@@ -14,8 +14,10 @@ function Dialog(props) {
     const updatePos = e => {
         //更新对象
         const newPos = { ...props.info }
-        newPos.name = e.target.elements[0].value
-        newPos.statue = e.target.elements[1].value
+        newPos.category = e.target.elements[0].value
+        newPos.charging_type = e.target.elements[1].value
+        newPos.level = e.target.elements[2].value
+        newPos.location = e.target.elements[3].value
         props.updatePos(props.index, newPos)
         //回到之前的窗口
         showModal()
@@ -26,9 +28,10 @@ function Dialog(props) {
                 更多信息
             </Button>
             <Modal title='基本信息' visible={isModalOpen === 1} onOk={closeInfoModal} onCancel={closeInfoModal}>
-                <p>车位编号：{props.info.name}</p>
-                <p>使用人：{props.info.user}</p>
-                <p>车位状态：{props.info.statue}</p>
+                <p>车位编号：{props.info.category}</p>
+                <p>车位状态：{props.info.charging_type}</p>
+                <p>消费类型：{props.info.level}</p>
+                <p>车位位置：{props.info.location}</p>
                 <Button onClick={showVise}>编辑</Button>
             </Modal>
             <Modal title='编辑' visible={isModalOpen === 2} onOk={closeInfoModal} onCancel={closeInfoModal}>
@@ -40,26 +43,51 @@ function Dialog(props) {
                     onSubmit={updatePos}
                     autoComplete='off'>
                     <Form.Item
-                        label='Name'
-                        name='username'
+                        label='分类'
+                        name='category'
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your username!'
+                                message: '请输入该停车位的分类!'
                             }
                         ]}>
-                        <Input defaultValue={props.info.name} />
+                        <Input defaultValue={props.info.category} />
                     </Form.Item>
+
                     <Form.Item
-                        label='statue'
-                        name='statue'
+                        label='收费类型'
+                        name='charging_type'
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your password!'
+                                message: '请输入收费类型!'
                             }
                         ]}>
-                        <Input defaultValue={props.info.statue} />
+                        <Input defaultValue={props.info.charging_type} />
+                    </Form.Item>
+
+                    <Form.Item
+                        label='等级'
+                        name='level'
+                        rules={[
+                            {
+                                required: true,
+                                message: '请属于预设置等级!'
+                            }
+                        ]}>
+                        <Input defaultValue={props.info.level} />
+                    </Form.Item>
+
+                    <Form.Item
+                        label='地址'
+                        name='location'
+                        rules={[
+                            {
+                                required: true,
+                                message: '请输入停车位的地址!'
+                            }
+                        ]}>
+                        <Input defaultValue={props.info.location} />
                     </Form.Item>
 
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
